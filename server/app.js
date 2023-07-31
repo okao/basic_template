@@ -6,7 +6,11 @@ require("dotenv").config({ path: ".env" });
 const bodyParser = require("body-parser");
 const myRoutes = require("./routes");
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 // app.use(express.json());
 app.use(bodyParser.json());
 // app.use(express.urlencoded({ extended: true }));

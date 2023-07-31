@@ -1,13 +1,7 @@
 const mysql = require("mysql2");
 require("dotenv").config({ path: "../.env" });
 const bodyParser = require("body-parser");
-
-const db = mysql.createPool({
-  host: "mysql_db", // the host name MYSQL_DATABASE: node_mysql
-  user: process.env.MYSQL_USER, // database user MYSQL_USER: MYSQL_USER
-  password: process.env.MYSQL_PASSWORD, // database user password MYSQL_PASSWORD: MYSQL_PASSWORD
-  database: process.env.MYSQL_DATABASE, // database name MYSQL_HOST_IP: mysql_db
-});
+const db = require("../config/db.config").db_connection;
 
 // Methods to be executed on routes
 const book_save = async (req, res) => {
