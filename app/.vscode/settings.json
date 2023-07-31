@@ -1,0 +1,5 @@
+// .vscode > settings.json
+{
+  "scss.lint.unknownAtRules": "ignore",
+  "css.lint.unknownAtRules": "ignore"
+}
