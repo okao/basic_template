@@ -64,7 +64,7 @@ function App() {
         // } else {
         //   alert("Failed to add book review");
         // }
-        alert("Book review added successfully");
+        // alert("Book review added successfully");
       })
       .catch((error) => {
         console.log("error", error);
