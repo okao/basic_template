@@ -153,10 +153,10 @@ function App() {
                       <div className="flex flex-row justify-between">
                         <div className="flex flex-col">
                           <span className="font-bold text-gray-800">
-                            {bookReview?.book_name}
+                            {bookReview?.bookName}
                           </span>
                           <span className="text-sm text-gray-500">
-                            {bookReview?.book_review}
+                            {bookReview?.bookReview}
                           </span>
                         </div>
                       </div>
