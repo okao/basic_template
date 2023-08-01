@@ -23,7 +23,7 @@ const book_save = async (req, res) => {
 };
 
 const get_books = async (req, res) => {
-  const SelectQuery = "SELECT * FROM books_reviews";
+  const SelectQuery = "SELECT * FROM books_reviews ORDER BY id DESC";
 
   try {
     const result = await db.promise().query(SelectQuery);

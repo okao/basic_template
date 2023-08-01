@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const myRoutes = require("./routes");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "http://localhost"], //you can add multiple origins here
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));

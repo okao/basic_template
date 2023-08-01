@@ -15,7 +15,7 @@ function App() {
 
     // call the axios get method to get the book reviews
     axios
-      .get(`${api_host}/get`)
+      .get(`${api_host}/book_reviews`)
       .then((response) => {
         console.log("response", response);
 
@@ -51,7 +51,7 @@ function App() {
 
     // add the book review to the list of book reviews by calling axios post method
     await axios
-      .post(`${api_host}/insert`, {
+      .post(`${api_host}/book_review`, {
         bookName: bookName,
         bookReview: bookReview,
       })
@@ -74,6 +74,9 @@ function App() {
     // reset the book name and book review
     setBookName("");
     setBookReview("");
+
+    // call the getBookReviews function to get the updated list of book reviews
+    getBookReviews();
   };
 
   return (
