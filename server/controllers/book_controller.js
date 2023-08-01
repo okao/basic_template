@@ -3,14 +3,35 @@ require("dotenv").config({ path: "../.env" });
 const bodyParser = require("body-parser");
 const database = require("../database/models");
 const { QueryTypes } = require("sequelize");
+// BookReview model
+const BookReview = require("../database/models/bookreview.js");
+
+console.log(BookReview);
+
+// get current timestamp in mysql format
+const get_current_timestamp = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // months are zero indexed
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
+  const mysql_timestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+  return mysql_timestamp;
+};
 
 // Methods to be executed on routes
 const book_save = async (req, res) => {
   const bookName = req.body.bookName;
   const bookReview = req.body.bookReview;
+  const createdAt = get_current_timestamp();
+  const updatedAt = get_current_timestamp();
 
   const InsertQuery =
-    "INSERT INTO books_reviews (book_name, book_review) VALUES (?, ?)";
+    "INSERT INTO BookReviews (book_name, book_review, createdAt, updatedAt) VALUES (?, ?, ?, ?)";
 
   try {
     // const result = await db
@@ -21,7 +42,7 @@ const book_save = async (req, res) => {
       type: QueryTypes.INSERT,
       plain: false,
       raw: true,
-      replacements: [bookName, bookReview],
+      replacements: [bookName, bookReview, createdAt, updatedAt],
     });
 
     console.log(result);
@@ -33,15 +54,15 @@ const book_save = async (req, res) => {
 };
 
 const get_books = async (req, res) => {
-  const SelectQuery = "SELECT * FROM books_reviews ORDER BY id DESC";
+  const SelectQuery = "SELECT * FROM BookReviews ORDER BY id DESC";
 
   try {
     // const result = await db.promise().query(SelectQuery);
     const db_data = await database.sequelize.query(SelectQuery, {
-      // type: QueryTypes.SELECT,
+      type: QueryTypes.SELECT,
       plain: false,
       raw: true,
-      model: database.books_reviews,
+      model: BookReview,
       mapToModel: true,
     });
 
@@ -58,7 +79,7 @@ const update_book = async (req, res) => {
   const bookId = req.params.bookId;
   const bookReview = req.body.bookReview;
 
-  const UpdateQuery = "UPDATE books_reviews SET book_review = ? WHERE id = ?";
+  const UpdateQuery = "UPDATE BookReviews SET book_review = ? WHERE id = ?";
 
   try {
     // const result = await db.promise().query(UpdateQuery, [bookReview, bookId]);
@@ -81,7 +102,7 @@ const update_book = async (req, res) => {
 //delete a book from the database
 const delete_book = async (req, res) => {
   const bookId = req.params.bookId;
-  const DeleteQuery = "DELETE FROM books_reviews WHERE id = ?";
+  const DeleteQuery = "DELETE FROM BookReviews WHERE id = ?";
   try {
     // const result = await db.promise().query(DeleteQuery, bookId);
 
