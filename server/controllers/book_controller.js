@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 require("dotenv").config({ path: "../.env" });
 const bodyParser = require("body-parser");
-const db = require("../config/db.config").db_connection;
+const db = require("../config/db.config");
 
 // Methods to be executed on routes
 const book_save = async (req, res) => {
